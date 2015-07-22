@@ -33,6 +33,20 @@ case $continue_stage in
     make install PREFIX=$NMLT_ROOT || exit
     ln -sf luajit-2.1.0-alpha $NMLT_ROOT/bin/luajit
     ;&
+  luarocks)
+    echo "luarocks" > "$NMLT_PATH/.continue_stage"
+    cd $NMLT_SRC
+    git clone git://github.com/keplerproject/luarocks.git || exit
+    cd luarocks
+    ./configure --prefix=$NMLT_ROOT \
+                --lua-version=5.1 \
+                --lua-suffix=jit \
+                --with-lua=$NMLT_ROOT \
+                --with-lua-include=$NMLT_ROOT/include/luajit-2.1 \
+                --with-lua-lib=$NMLT_ROOT/lib/lua/5.1 \
+                --force-config && \
+    make build && make install || exit
+    ;&
   luasocket)
     echo "luasocket" > "$NMLT_PATH/.continue_stage"
     # luasocket

@@ -1,0 +1,3 @@
+randomswitch=do
+  import random from require "math"
+  (funcs, ...)-> funcs[random #funcs] ...
