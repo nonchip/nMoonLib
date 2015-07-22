@@ -1,5 +1,6 @@
 /test/.root
 /test/.run
 /test/moon
+/test/busted
 /.sublime-project*
 */docs/*
