@@ -38,3 +38,5 @@ describe "String class", ->
       assert.is_equal "abc", String.trim a
     it "has trim without side effects", ->
       assert.is_equal a, "  abc\n "
+    it "supports gsplit", ->
+      assert.is_equal "b", ([s for s in String.gsplit "a,b,c", ","])[2]
