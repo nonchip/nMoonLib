@@ -12,11 +12,12 @@ isnil=(value)->
   return ((type(value)=="nil") or (value==ffi.NULL))
 
 
-ycdef=(lib,path)->
+ycdef=(lib)->
   sanelib=string.gsub(lib,'%.so.*$','')
+  sanelib=string.gsub(sanelib,'^.*/','')
   sanelib=string.gsub(sanelib,'[^a-zA-Z0-9]','_')
   ffi.cdef('const char* YCDEF_'..sanelib..';')
-  handle=ffi.load(path and path.."/"..lib or lib)
+  handle=ffi.load(lib)
   ffi.cdef(ffi.string(handle['YCDEF_'..sanelib]))
   return handle
 
