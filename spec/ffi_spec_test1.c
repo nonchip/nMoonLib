@@ -3,7 +3,8 @@ cd "$(dirname "$(readlink -f "$0")")"
 gcc -shared -Wall -fPIC "$(basename "$0")" -o "$(basename "$0" .c).so"
 exit
 #endif
-const char* YCDEF_ffi_spec_test=
+
+const char* YCDEF_ffi_spec_test1=
   "const int a;"
   "int b(int,int);"
 ;

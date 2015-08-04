@@ -62,7 +62,8 @@ case $continue_stage in
     ;&
   c_helpers)
     echo "c_helpers" > "$NMLT_PATH/.continue_stage"
-    "$NMLT_PATH"/spec/ffi_spec_test.c
+    "$NMLT_PATH"/spec/ffi_spec_test1.c
+    "$NMLT_PATH"/spec/ffi_spec_test2.c
   wrappers)
     echo "wrappers" > "$NMLT_PATH/.continue_stage"
     # wrappers
