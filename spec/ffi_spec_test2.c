@@ -18,7 +18,11 @@ const char* LDEF_ffi_spec_test2=
 
 const char* MDEF_ffi_spec_test2=
   "ffi=require'ffi'\n"
-  "c=ffi.string L.str\n"
+  "local c\n"
+  "if C.a==1\n"
+  "  c=ffi.string L.str\n"
+  "else\n"
+  "  c='that shouldn\\'t happen'\n"
   "{:c}\n"
 ;
 
