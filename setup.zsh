@@ -60,6 +60,9 @@ case $continue_stage in
     echo "busted" > "$NMLT_PATH/.continue_stage"
     $NMLT_ROOT/bin/luarocks install busted
     ;&
+  c_helpers)
+    echo "c_helpers" > "$NMLT_PATH/.continue_stage"
+    "$NMLT_PATH"/spec/ffi_spec_test.c
   wrappers)
     echo "wrappers" > "$NMLT_PATH/.continue_stage"
     # wrappers

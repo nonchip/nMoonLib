@@ -4,3 +4,4 @@
 /busted
 /.sublime-project*
 */docs/*
+/spec/ffi_spec_test.so
