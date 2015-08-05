@@ -10,7 +10,7 @@ describe "ffi helpers", ->
   it "can protect us from crashing while accessing nil", ->
     assert.are.equal(ffi.check(lib,c), nil)
   it "can load our own CLMDEF libs", ->
-    c,l,m=ffi.cdef "spec/ffi_spec_test2.so"
+    m,l,c=ffi.cdef "spec/ffi_spec_test2.so"
   it "automatically loads the C, Lua and moon definitions", ->
     assert.are.equal(c.a,1)
     assert.are.equal(l.b(2,3), 6)

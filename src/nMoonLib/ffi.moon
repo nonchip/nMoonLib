@@ -38,8 +38,10 @@ cdef=(lib,cprefix="CDEF",lprefix="LDEF",mprefix="MDEF")->
     md=check(handle,mprefix..'_'..sanelib)
     if md
       m=moon.run_with_scope((assert moonbase.loadstring ffi.string(md),mprefix..'_'..sanelib,"bt"), {C:handle,L:l})
-  return handle,l,m
+  return m,l,handle
 
-ycdef=(lib)-> cdef lib, 'YCDEF',nil,nil
+ycdef=(lib)->
+  m,l,c=cdef lib, 'YCDEF',nil,nil
+  return c,l,m
 
 {:check,:isnil,:cdef,:ycdef}
