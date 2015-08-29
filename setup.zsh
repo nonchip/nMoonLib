@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-export NMLT_PATH="$(readlink -f $(dirname $0))"
+export NMLT_PATH="$(dirname $(readlink -f $0))"
 export NMLT_REAL_ROOT="$NMLT_PATH/.root"
 export NMLT_SRC="$NMLT_PATH/.src"
 export NMLT_ROOT="/tmp/.nMLt.$(uuidgen -t)-$(uuidgen -r)"
@@ -47,18 +47,13 @@ case $continue_stage in
                 --force-config && \
     make build && make install || exit
     ;&
-  luasocket)
-    echo "luasocket" > "$NMLT_PATH/.continue_stage"
-    # luasocket
-    $NMLT_ROOT/bin/luarocks install luasocket || exit
-    ;&
   moonscript)
     echo "moonscript" > "$NMLT_PATH/.continue_stage"
-    $NMLT_ROOT/bin/luarocks install moonscript
+    $NMLT_ROOT/bin/luarocks install https://raw.githubusercontent.com/nonchip/moonscript/master/moonscript-dev-1.rockspec || exit
     ;&
   busted)
     echo "busted" > "$NMLT_PATH/.continue_stage"
-    $NMLT_ROOT/bin/luarocks install busted
+    $NMLT_ROOT/bin/luarocks install busted || exit
     ;&
   c_helpers)
     echo "c_helpers" > "$NMLT_PATH/.continue_stage"
