@@ -31,7 +31,7 @@ case $continue_stage in
     git pull
     make amalg PREFIX=$NMLT_ROOT CPATH=$NMLT_ROOT/include LIBRARY_PATH=$NMLT_ROOT/lib && \
     make install PREFIX=$NMLT_ROOT || exit
-    ln -sf luajit-2.1.0-alpha $NMLT_ROOT/bin/luajit
+    ln -sf luajit-2.1.0-beta1 $NMLT_ROOT/bin/luajit
     ;&
   luarocks)
     echo "luarocks" > "$NMLT_PATH/.continue_stage"
