@@ -17,7 +17,7 @@ describe "DSL", ->
       {name: "a", value: {
         {name: "b", value: {
           {name: "c", value: 5}
-          {name: "d", value: 3}
+          {name: "d", value: {3,4}}
         }}
         {name: "e", value: 7}
       }}

@@ -3,11 +3,17 @@ import insert from require "table"
 
 local parse_to_table
 
-call = (name, first, arg)=>
-  if type(first) == "function"
-    insert @_buffer, {:name, value: parse_to_table first, arg}
+args = (first, ...)->
+  if #{...}>0
+    {first, ...}
   else
-    insert @_buffer, {:name, value: first}
+    first
+
+call = (name, first, ...)=>
+  if type(first) == "function"
+    insert @_buffer, {:name, value: parse_to_table first, args ...}
+  else
+    insert @_buffer, {:name, value: args first, ...}
 
 index = (name)=>
   (...) -> call @, name, ...
