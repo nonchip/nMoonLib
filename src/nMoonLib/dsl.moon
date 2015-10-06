@@ -18,8 +18,8 @@ call = (name, first, ...)=>
 index = (name)=>
   (...) -> call @, name, ...
 
-parse_to_table=(fn)->
-  buf={}
+parse_to_table = (fn)->
+  buf = {}
   run_with_scope fn, defaultbl {_buffer:buf}, index
   buf
 
