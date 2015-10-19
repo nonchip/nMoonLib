@@ -55,11 +55,6 @@ case $continue_stage in
     echo "busted" > "$NMLT_PATH/.continue_stage"
     $NMLT_ROOT/bin/luarocks install busted || exit
     ;&
-  c_helpers)
-    echo "c_helpers" > "$NMLT_PATH/.continue_stage"
-    "$NMLT_PATH"/spec/ffi_spec_test1.c
-    "$NMLT_PATH"/utils/mk_cdeflib.sh "$NMLT_PATH"/spec/ffi_spec_test2.c
-    ;&
   wrappers)
     echo "wrappers" > "$NMLT_PATH/.continue_stage"
     # wrappers
@@ -87,6 +82,10 @@ END
     chmod a+rx $NMLT_PATH/.run
     ln -sf .run $NMLT_PATH/moon
     ln -sf .run $NMLT_PATH/busted
+    ;&
+  mk)
+    echo "mk" > "$NMLT_PATH/.continue_stage"
+    $NMLT_PATH/mk
     ;&
 esac
 

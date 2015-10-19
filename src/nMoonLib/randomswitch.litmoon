@@ -1,0 +1,20 @@
+# `randomswitch`
+
+## Usage
+
+Calls a random function out of a table with any additional arguments.
+
+## Syntax
+
+`randomswitch {function1,function2,…,functionN}, ...`
+
+## Dependencies
+
+* lua stdlib: math.random
+
+    import random from require "math"
+
+## Code
+
+    randomswitch=(funcs, ...)->
+      funcs[random #funcs] ...
