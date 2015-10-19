@@ -9,3 +9,4 @@
 
 /src/nMoonLib/randomswitch.moon
 /src/nMoonLib/future.moon
+/src/nMoonLib/ffi.moon

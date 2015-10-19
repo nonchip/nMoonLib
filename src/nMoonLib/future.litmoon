@@ -3,6 +3,7 @@ Can be used to pass around references to future (object or table) values.
 
 ## Usage
 ```
+Future = require "nMoonLib.future"
 my_ref = Future!
 some_call_to_pass_the_reference_to my_ref
 my_ref\now some_other_object

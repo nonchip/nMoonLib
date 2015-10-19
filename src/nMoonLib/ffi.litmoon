@@ -1,0 +1,83 @@
+# FFI Tools
+This is a collection of helper tools for LuaJIT's FFI.
+
+# Dependencies
+    ffi=require'ffi'
+    moon=require 'moon'
+    moonbase=require 'moonscript.base'
+
+# Usage
+```
+import check, isnil, cdef from require "nMoonLib.ffi"
+```
+
+# `check`
+checks if a symbol exists in a C context, returns value or `nil`
+
+## Usage
+```
+ffi=require "ffi"
+ctx=ffi.load "some_lib"
+some_symbol_value=assert check ctx, "some_symbol"
+```
+
+## Code
+    _access=(lib,symbol)->
+      return lib[symbol]
+
+    check=(lib,symbol)->
+      ok,v = pcall(_access,lib,symbol)
+      return ok and v or nil
+
+# `isnil`
+returns `true` if argument is of Lua type `nil` or C type `NULL`.
+
+## Syntax
+```
+isnil some_value
+```
+
+## Code
+    isnil=(value)->
+      return ((type(value)=="nil") or (value==ffi.NULL))
+
+
+# `cdef`
+loads a so-called "cdef library": a shared object containing the FFI cdefs and/or Lua and/or MoonScript code as C strings.
+
+**FIXME: write docs**
+
+## Code
+    cdef=(lib,cprefix="CDEF",lprefix="LDEF",mprefix="MDEF")->
+      local l,m
+      sanelib=string.gsub(lib,'%.so.*$','')
+      sanelib=string.gsub(sanelib,'^.*/','')
+      sanelib=string.gsub(sanelib,'[^a-zA-Z0-9]','_')
+      if cprefix
+        ffi.cdef('const char* '..cprefix..'_'..sanelib..';')
+      if lprefix
+        ffi.cdef('const char* '..lprefix..'_'..sanelib..';')
+      if mprefix
+        ffi.cdef('const char* '..mprefix..'_'..sanelib..';')
+      handle=ffi.load(lib)
+      if cprefix
+        cd=check(handle,cprefix..'_'..sanelib)
+        if cd
+          ffi.cdef ffi.string cd
+      if lprefix
+        ld=check(handle,lprefix..'_'..sanelib)
+        if ld
+          l=moon.run_with_scope((assert loadstring ffi.string(ld),lprefix..'_'..sanelib,"bt"), {C:handle})
+      if mprefix
+        md=check(handle,mprefix..'_'..sanelib)
+        if md
+          m=moon.run_with_scope((assert moonbase.loadstring ffi.string(md),mprefix..'_'..sanelib,"bt"), {C:handle,L:l})
+      return m,l,handle
+
+    ycdef=(lib)->
+      m,l,c=cdef lib, 'YCDEF',nil,nil
+      return c,l,m
+
+----
+
+    {:check,:isnil,:cdef,:ycdef}
