@@ -1,7 +1,7 @@
 # `Future`
 Can be used to pass around references to future (object or table) values.
 
-## Syntax
+## Usage
 ```
 my_ref = Future!
 some_call_to_pass_the_reference_to my_ref
