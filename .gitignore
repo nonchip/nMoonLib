@@ -8,3 +8,4 @@
 /spec/ffi_spec_test2.so
 
 /src/nMoonLib/randomswitch.moon
+/src/nMoonLib/future.moon

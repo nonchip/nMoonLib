@@ -1,0 +1,25 @@
+# `Future`
+Can be used to pass around references to future (object or table) values.
+
+## Syntax
+```
+my_ref = Future!
+some_call_to_pass_the_reference_to my_ref
+my_ref\now some_other_object
+
+```
+
+## Code
+    class Future
+      new: =>
+        @obj=nil
+        fb=getmetatable(@).__index
+        setmetatable @, {
+          __index: (k)=>
+            o=rawget @, 'obj'
+            if o
+              return o[k]
+            else
+              return fb[k]
+        }
+      now: (@obj)=>
