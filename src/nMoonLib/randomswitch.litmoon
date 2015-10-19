@@ -2,7 +2,9 @@
 Calls a random function out of a table with any additional arguments.
 
 ## Syntax
-`randomswitch {function1,function2,…,functionN}, ...`
+```
+randomswitch {function1,function2,…,functionN}, ...
+```
 
 ## Dependencies
     import random from require "math"
