@@ -15,3 +15,7 @@ describe "ffi helpers", ->
     assert.are.equal(c.a,1)
     assert.are.equal(l.b(2,3), 6)
     assert.are.equal(m.c,"blah")
+  it "can wrap C functions", ->
+    f=ffi.cwrap (require 'ffi').C, "int #atoi#(const char *str)", (str)=>
+      1 + @ str..'0'
+    assert.are.equal f'5', 51

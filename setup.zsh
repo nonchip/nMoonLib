@@ -22,22 +22,24 @@ case $continue_stage in
     ln -s "$NMLT_REAL_ROOT" "$NMLT_ROOT"
     echo "$NMLT_ROOT" > "$NMLT_PATH/.continue_root"
     ;&
-  luajit)
+  luajit) v=126e55d416ad10dc9265593b73b9f322dbf9d658
     echo "luajit" > "$NMLT_PATH/.continue_stage"
     cd $NMLT_SRC
     git clone http://luajit.org/git/luajit-2.0.git luajit || exit
     cd luajit
-    git checkout v2.1
+    git checkout ${v}
     git pull
     make amalg PREFIX=$NMLT_ROOT CPATH=$NMLT_ROOT/include LIBRARY_PATH=$NMLT_ROOT/lib && \
     make install PREFIX=$NMLT_ROOT || exit
-    ln -sf luajit-2.1.0-beta1 $NMLT_ROOT/bin/luajit
+    ln -sf $(find $NMLT_ROOT/bin/ -name "luajit-2.1*" | head -n 1) $NMLT_ROOT/bin/luajit
     ;&
-  luarocks)
+  luarocks) v=e3203adbc3f5daa5f46097d3439edbada01807f3
     echo "luarocks" > "$NMLT_PATH/.continue_stage"
     cd $NMLT_SRC
     git clone git://github.com/keplerproject/luarocks.git || exit
     cd luarocks
+    git checkout ${v}
+    git pull
     ./configure --prefix=$NMLT_ROOT \
                 --lua-version=5.1 \
                 --lua-suffix=jit \

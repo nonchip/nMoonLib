@@ -8,7 +8,7 @@ This is a collection of helper tools for LuaJIT's FFI.
 
 # Usage
 ```
-import check, isnil, cdef from require "nMoonLib.ffi"
+import check, isnil, cwrap, cdef from require "nMoonLib.ffi"
 ```
 
 # `check`
@@ -40,6 +40,27 @@ isnil some_value
 ## Code
     isnil=(value)->
       return ((type(value)=="nil") or (value==ffi.NULL))
+
+
+# `cwrap`
+wraps a function cdef.
+
+## Syntax
+```
+cwrap c_context, cdef_string, wrapper_function
+```
+cdef_string has to wrap the function name between `#` and not end in `;`, wrapper function gets the c function bound as first argument.
+
+example:
+```
+add_one = cwrap ffi.C, "int #add#(int,int)", (value)=> @ value, 1
+```
+
+## Code
+    cwrap=(c_context,cdef_string,wrapper_function)->
+      ffi.cdef (cdef_string\gsub '#', '')..';'
+      funcname=cdef_string\match '#([^#]+)#'
+      (...)-> wrapper_function c_context[funcname], ...
 
 
 # `cdef`
@@ -80,4 +101,4 @@ loads a so-called "cdef library": a shared object containing the FFI cdefs and/o
 
 ----
 
-    {:check,:isnil,:cdef,:ycdef}
+    {:check,:isnil,:cwrap,:cdef,:ycdef}
